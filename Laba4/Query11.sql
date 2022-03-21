@@ -12,7 +12,6 @@ create table TIMETABLE
     IDGROUP    integer
         constraint TIMETABLE_GROUP_FK foreign key references GROUPS (IDGROUP),
 )
-
 insert into TIMETABLE
 values ('пн', 1, 'СМЛВ', '313-1', 'СУБД', 2),
        ('пн', 2, 'СМЛВ', '313-1', 'ОАиП', 4),
@@ -53,55 +52,45 @@ except
 select distinct AUDITORIUM.AUDITORIUM_NAME
 from AUDITORIUM inner join TIMETABLE T on T.DAY_NAME='вт' and AUDITORIUM.AUDITORIUM = T.AUDITORIUM
 
--- ex3: наличие «окон» у преподавателей
-select distinct T.TEACHER_NAME as 'Преподаватель', T1.DAY_NAME as 'День недели', T1.LESSON as 'Занятая пара'
-from TEACHER T,
-     TIMETABLE T1,
-     TIMETABLE T2
-where T.TEACHER = T1.TEACHER
-  and T1.DAY_NAME = T2.DAY_NAME
-  and T1.LESSON != T2.LESSON
-order by T.TEACHER_NAME asc, T1.DAY_NAME desc, T1.LESSON asc;
+
+--3
+select distinct TEACHER_NAME,DAY_NAME, case
+           when ( count(*)= 0) then 4
+           when ( count(*)= 1) then 3
+           when ( count(*)= 2) then 2
+           when ( count(*)= 3) then 1
+           when ( count(*)= 4) then 0
+           end [Кол-во окон]
+FROM  TEACHER inner join dbo.TIMETABLE T on TEACHER.TEACHER = T.TEACHER
+group by TEACHER_NAME,DAY_NAME
+order by TEACHER_NAME
 
 
 
-select distinct T.TEACHER_NAME as 'Преподаватель', T1.DAY_NAME as 'День недели', T1.LESSON as '"окна"'
-from TEACHER T,
-     TIMETABLE T1,
-     TIMETABLE T2
-except
-(select distinct T.TEACHER_NAME, T1.DAY_NAME, T1.LESSON
- from TEACHER T,
-      TIMETABLE T1,
-      TIMETABLE T2
- where T.TEACHER = T1.TEACHER
-   and T1.DAY_NAME = T2.DAY_NAME
-   and T1.LESSON != T2.LESSON
-order by T.TEACHER_NAME asc, T1.DAY_NAME desc, T1.LESSON asc);
+-- select distinct TEACHER.TEACHER_NAME,DAY_NAME,LESSON
+-- FROM  TEACHER cross join dbo.TIMETABLE T
+-- where TEACHER.TEACHER in (select TEACHER from  TIMETABLE)
+
+
+
+
+
+
 
 
 -- ex 4: окна у групп
-select distinct GROUPS.IDGROUP as 'Группа', T1.DAY_NAME as 'День недели', T1.LESSON as 'Занятая пара'
-from GROUPS,
-     TIMETABLE T1,
-     TIMETABLE T2
-where GROUPS.IDGROUP = T1.IDGROUP
-  and T1.DAY_NAME = T2.DAY_NAME
-  and T1.LESSON != T2.LESSON
-order by GROUPS.IDGROUP asc, T1.DAY_NAME desc, T1.LESSON asc
+select distinct GROUPS.IDGROUP,DAY_NAME, case
+           when ( count(*)= 0) then 4
+           when ( count(*)= 1) then 3
+           when ( count(*)= 2) then 2
+           when ( count(*)= 3) then 1
+           when ( count(*)= 4) then 0
+           end [Кол-во окон]
+FROM  GROUPS inner join dbo.TIMETABLE T on GROUPS.IDGROUP = T.IDGROUP
+group by GROUPS.IDGROUP,DAY_NAME
+order by GROUPS.IDGROUP
 
 
-select distinct GROUPS.IDGROUP as 'Группа', T1.DAY_NAME as 'День недели', T1.LESSON as '"окна"'
-from GROUPS,
-     TIMETABLE T1,
-     TIMETABLE T2
-except
-select distinct GROUPS.IDGROUP, T1.DAY_NAME, T1.LESSON
- from GROUPS,
-      TIMETABLE T1,
-      TIMETABLE T2
- where GROUPS.IDGROUP = T1.IDGROUP
-   and T1.DAY_NAME = T2.DAY_NAME
-   and T1.LESSON != T2.LESSON
+
 
 
