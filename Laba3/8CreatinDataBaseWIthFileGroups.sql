@@ -1,6 +1,6 @@
-
 use master
 go
+
 create database H_MyBase_H
     on primary
     (name = N'H_MyBase_mdf', filename = N'D:\DB\H_MyBase_mdf.mdf',

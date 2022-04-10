@@ -1,4 +1,5 @@
 use H_MYBASE_
+
 select Distinct Имя , Фамилия,Отчество
 from РАБОТНИКИ where Стаж between 5 and 10
 

@@ -1,12 +1,16 @@
 use UNIVER;
 
-Select top(1)
+
+
+
+Select
 (select avg(NOTE) from PROGRESS where SUBJECT= N'ОАиП')[Средняя отметка по ОАиП],
 (select avg(NOTE) from PROGRESS where SUBJECT= N'СУБД')[Средняя отметка по СУБД],
 (select avg(NOTE) from PROGRESS where SUBJECT= N'КГ')[Средняя отметка по КГ]
-From PROGRESS
 
-/* почему именно top(1) , а без него средние отметки повторяются кучу раз?
+
+
+
 
 
 

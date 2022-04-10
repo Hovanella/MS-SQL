@@ -29,7 +29,7 @@ UNION
     SELECT NAME, YEAR_FIRST
     From GROUPS
              Left OUTER JOIN STUDENT S2 on GROUPS.IDGROUP = S2.IDGROUP
-    Union ALL
+    Union 
     SELECT NAME, YEAR_FIRST
     From GROUPS
              RIGHT outer join STUDENT S3 on GROUPS.IDGROUP = S3.IDGROUP)
@@ -52,7 +52,7 @@ UNION
         From GROUPS
                  Left OUTER JOIN STUDENT S2
                                  on GROUPS.IDGROUP = S2.IDGROUP
-        Union ALL
+        Union 
         SELECT NAME, YEAR_FIRST
         From GROUPS
                  RIGHT outer join STUDENT S3

@@ -45,6 +45,7 @@ select distinct AUDITORIUM.AUDITORIUM_NAME
 from AUDITORIUM inner join TIMETABLE T on T.LESSON = 2 and T.DAY_NAME='вт' and AUDITORIUM.AUDITORIUM = T.AUDITORIUM
 
 
+
 --2
 select AUDITORIUM_NAME as 'Аудитория, свободные на во вт'
 from AUDITORIUM
@@ -64,6 +65,8 @@ select distinct TEACHER_NAME,DAY_NAME, case
 FROM  TEACHER inner join dbo.TIMETABLE T on TEACHER.TEACHER = T.TEACHER
 group by TEACHER_NAME,DAY_NAME
 order by TEACHER_NAME
+
+-- make query to find Teachers from TEACH
 
 
 

@@ -27,3 +27,5 @@ Create table ОПЕРАЦИИ(
 )
 
 
+select * from Операции;
+
