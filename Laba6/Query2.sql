@@ -2,12 +2,13 @@
 
 use UNIVER;
 
-SELECT AUDITORIUM_TYPENAME, max(AUDITORIUM_CAPACITY) as [Максимальная вместительность],
- min(AUDITORIUM_CAPACITY) as [Минимальная вместительность],
- avg(AUDITORIUM_CAPACITY) as [Средняя вместительность],
-count(AUDITORIUM) as [Общее кол-во аудиторий],
- sum(AUDITORIUM_CAPACITY) as [Общая вместительность аудитории данного типа]
-From AUDITORIUM_TYPE full join AUDITORIUM A on AUDITORIUM_TYPE.AUDITORIUM_TYPE = A.AUDITORIUM_TYPE
+SELECT AUDITORIUM_TYPENAME, max(AUDITORIUM_CAPACITY)  [Максимальная вместительность],
+ min(AUDITORIUM_CAPACITY)  [Минимальная вместительность],
+ avg(AUDITORIUM_CAPACITY)  [Средняя вместительность],
+count(AUDITORIUM)  [Общее кол-во аудиторий],
+ sum(AUDITORIUM_CAPACITY)  [Общая вместительность аудитории данного типа]
+From AUDITORIUM_TYPE left join AUDITORIUM A on AUDITORIUM_TYPE.AUDITORIUM_TYPE = A.AUDITORIUM_TYPE
 Group By AUDITORIUM_TYPENAME
+
 
 
