@@ -15,7 +15,7 @@ if @SumCapacity > 200
     begin
         select @AuditoriumNumber = (select COUNT(*) from AUDITORIUM),
                @AverageCapacity = (select AVG(AUDITORIUM_CAPACITY) FROM AUDITORIUM)
-        set @NumberOfAuditoriumsWithCapacityLessThanAverage = (select COUNT(*)
+         set      @NumberOfAuditoriumsWithCapacityLessThanAverage = (select COUNT(*)
                                                                from AUDITORIUM
                                                                where AUDITORIUM_CAPACITY < @AverageCapacity)
         select @AuditoriumNumber                                as [Кол-во аудиторий],

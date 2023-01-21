@@ -1,4 +1,10 @@
 
+--4. Создать и заполнить временную локальную таблицу. 
+--Разработать SELECT-запрос, по-лучить план запроса и определить его стоимость. 
+--Создать некластеризованный фильтруемый индекс, уменьшаю-щий стоимость SELECT-запроса.
+
+
+
 use UNIVER;
 go
 
@@ -23,4 +29,7 @@ SELECT some_ind from  #temp_table_2 where some_ind=16000
 
  CREATE  index #temp_table_WHERE on #temp_table_2(some_ind) where (some_ind>15000 and
  some_ind  < 20000);
+
+
+
  drop index #temp_table_WHERE on #temp_table_2

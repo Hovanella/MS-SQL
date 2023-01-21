@@ -4,7 +4,7 @@
 use UNIVER;
 
 begin TRY
-	declare @Value int = 3
+
 	UPDATE PROGRESS SET PROGRESS.NOTE='asd'
 end TRY
 begin CATCH

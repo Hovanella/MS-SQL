@@ -22,7 +22,7 @@ CREATE index #temp_table_2_ind1  on #temp_table_2(some_ind)with (fillfactor = 65
 
 INSERT top(50)percent into #temp_table_2(some_ind, some_field) select some_ind, some_field  from #temp_table_2;
 use tempdb
-SELECT name [������], avg_fragmentation_in_percent [������������(%)]
+SELECT name [Индекс], avg_fragmentation_in_percent [Фрагментация (%)]
 FROM sys.dm_db_index_physical_stats(DB_ID(N'TEMPDB'), OBJECT_ID(N'#temp_table_2'), NULL, NULL, NULL) ss
        JOIN sys.indexes ii on ss.object_id = ii.object_id and ss.index_id = ii.index_id
        where name is not null;

@@ -12,10 +12,10 @@ FETCH  Teacher_cursor into @teacher;
 CLOSE Teacher_cursor;
 go
 
-/*OPEN Teacher_cursor;
+OPEN Teacher_cursor;
 CLOSE Teacher_cursor
-go
-*/
+go	
+
 DECLARE Teacher_cursor_2 CURSOR GLOBAL for select TEACHER.TEACHER_NAME from TEACHER where TEACHER.PULPIT = 'ИСиТ';
 DECLARE @teacher char(50), @teacher_ot char(100) ='';
 OPEN Teacher_cursor_2;

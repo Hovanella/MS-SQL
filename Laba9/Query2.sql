@@ -4,7 +4,6 @@
 Оценить процедуры поиска ин-формации.
 */
 
---ПРОВЕРИТЬ ИНДЕКСЫ В SSMS
 
 create table #temp_table_1
 (
@@ -26,10 +25,9 @@ from #temp_table_1
 where cc > 500
   and some_ind between 1500 and 5000
 
+SELECT * from  #temp_table_1 where some_ind  = 556 and  CC > 3
+  
+CREATE index #temp_table_1_nonclu on #temp_table_1 (cc, some_ind)
 
-SELECT *
-from #temp_table_1
-where some_field = 'str34'
-  and cc > 3
-CREATE index #temp_table_1_nonclu on #temp_table_1 (some_ind, cc)
+
 drop table #temp_table_1

@@ -1,3 +1,10 @@
+
+--3. —оздать временную локальную таблицу. «аполнить ее данными (не менее 10000 строк). 
+--–азработать SELECT-запрос. ѕо-лучить план запроса и определить его стоимость. 
+--—оздать некластеризованный ин-декс покрыти€, уменьшающий сто-имость SELECT-запроса. 
+
+
+
 use UNIVER;
 go
 
@@ -16,7 +23,9 @@ begin
 	SET @k = @k + 1;
 end
 
-select * from #temp_table_2 where cc >500 and some_ind between 1500 and 5000
-CREATE index #temp_table_2_nonclu_2 on #temp_table_2(some_ind) INCLUDE(cc)
 select CC from #temp_table_2 where some_ind > 500
+
+
+CREATE index #temp_table_2_nonclu_2 on #temp_table_2(some_ind) INCLUDE(cc)
+
 drop table #temp_table_2

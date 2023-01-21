@@ -18,7 +18,7 @@ DECLARE @c char ='a',
 		@ti tinyint,
 		@n numeric(12,5);
 SET @d=GETDATE();
-SELECT @t='22:59:34.21';
+SELECT @t='12:59:34.21';
 SELECT @c char, @v varchar, @d datetime, @t time;
 SELECT @s=345, @ti=1, @n=1234567.12345;
 print @i;print @s;print @ti;print @n;

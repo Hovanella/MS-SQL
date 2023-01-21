@@ -7,49 +7,53 @@
 use UNIVER;
 
 
--- ВООБЩЕ НЕ РАБОТАЕТ
-select *
-from PROGRESS;
 
-DECLARE @id varchar(10), @name varchar(100), @subj varchar(50), @note varchar(2);
-DECLARE PROGRESS_DELETE_CURSOR CURSOR LOCAL DYNAMIC
-    for SELECT STUDENT.IDSTUDENT, STUDENT.NAME, PROGRESS.SUBJECT, PROGRESS.NOTE
-        from PROGRESS
-                 inner join STUDENT on PROGRESS.IDSTUDENT = STUDENT.IDSTUDENT FOR UPDATE;
-OPEN PROGRESS_DELETE_CURSOR
-fetch PROGRESS_DELETE_CURSOR into @id,@name,@subj,@note;
-if (@note < 5)
-    begin
-        DELETE PROGRESS where CURRENT OF PROGRESS_DELETE_CURSOR;
-    end;
+insert into PROGRESS (SUBJECT, IDSTUDENT, PDATE, NOTE) values
+	('КГ',   1026,  '06.05.2013',3),
+	('КГ',   1027,  '06.05.2013',2),
+	('КГ',   1028,  '06.05.2013',2),
+	('КГ',   1029,  '06.05.2013',3),
+	('КГ',   1030,  '06.05.2013',1),
+	('КГ',   1031,  '06.05.2013',3)
 
-select *
-from PROGRESS;
+select * from PROGRESS
+
+
+select NAME, NOTE
+from PROGRESS
+	inner join STUDENT on PROGRESS.IDSTUDENT = STUDENT.IDSTUDENT
+where NOTE < 4
+
+declare EX6_1 cursor local
+	for	select NAME, NOTE
+	from PROGRESS
+		inner join STUDENT on PROGRESS.IDSTUDENT = STUDENT.IDSTUDENT
+	where NOTE < 4
+declare @student nvarchar(20), @mark int;
+	open EX6_1;
+		fetch  EX6_1 into @student, @mark;
+		while @@FETCH_STATUS = 0
+			begin
+				delete PROGRESS where current of EX6_1;
+				fetch  EX6_1 into @student, @mark;
+			end
+	close EX6_1;
+
+select NAME, NOTE from PROGRESS inner join STUDENT on PROGRESS.IDSTUDENT = STUDENT.IDSTUDENT where NOTE<4
+go
+
 
 
 --1
 
+declare EX6_2 cursor local for select NAME, NOTE from PROGRESS inner join STUDENT S on PROGRESS.IDSTUDENT = S.IDSTUDENT
+where PROGRESS.IDSTUDENT=1023;
 
-declare @id int = 0, @specId int = 1003;
+declare @student nvarchar(20), @mark int;
+open EX6_2;
+fetch EX6_2 into @student, @mark;
+update PROGRESS set NOTE = NOTE + 1 where current of EX6_2;
+close EX6_2;
 
-select *
-from PROGRESS
-where IDSTUDENT = @specId;
 
-declare CURS cursor local
-    for select *
-        from PROGRESS for update
-OPEN CURS
-while @@fetch_status = 0
-    begin
-        fetch CURS into @id
-        if @id = @specId
-            update PROGRESS
-            set PROGRESS.NOTE = PROGRESS.NOTE + 1
-            where current of CURS
-    end
-close CURS
-
-select *
-from PROGRESS
-where IDSTUDENT = @specId;
+select * from PROGRESS where IDSTUDENT=1023;

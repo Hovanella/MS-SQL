@@ -3,23 +3,27 @@
 Процедура PSUBJECT должна формировать ре-зультирующий набор, аналогичный набору, представ-ленному на рисунке выше, но при этом содержать строки, соответствующие коду кафедры, заданному параметром @p. Кроме того, процедура должна фор-мировать значение выходного параметра @с, равное количеству строк в результирующем наборе, а также возвращать значение к точке вызова, равное общему количеству дисциплин (количеству строк в таблице SUBJECT). */
 
 
-use UNIVER;
-go;
+use UNIVER
+go
 
 
 
 ALTER PROCEDURE PSUBJECT @p NVARCHAR(20) = NULL, @c INT OUTPUT
 AS
 BEGIN
-	DECLARE @count INT = (SELECT COUNT(*) FROM SUBJECT)
-	PRINT 'Parameters: @p = ' + @p + ', @c = ' + CAST(@c AS VARCHAR(3))
-	SELECT * FROM SUBJECT
-	WHERE SUBJECT.PULPIT = @p
-	SET @c = @@ROWCOUNT
-	RETURN @count
+    DECLARE @count INT = (SELECT COUNT(*) FROM SUBJECT)
+
+
+    SELECT *
+    FROM SUBJECT
+    WHERE SUBJECT.PULPIT = @p
+
+
+    SET @c = @@ROWCOUNT
+    RETURN @count
 END
 GO
 
 declare @c int;
-exec PSUBJECT 'ЛУ', @c output
+exec PSUBJECT 'ИСиТ', @c output
 print 'result = ' + cast(@c as varchar(3));

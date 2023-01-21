@@ -3,7 +3,7 @@
 use UNIVER
 go
 
-declare @numberOfGroups int = 100;
+declare @numberOfGroups int = 20;
 
 if (select count(*) from GROUPS) > @numberOfGroups
 begin

@@ -7,26 +7,25 @@
 USE UNIVER
 go
 
---ПРОВЕРИТЬ ИНДЕКСЫ В SSMS
+
 
 exec sp_helpindex 'AUDITORIUM'
-exec sp_helpindex 'AUDITORIUM_TYPE'
+exec sp_helpindex 'AUDITORIUM_TYPE'	
 exec sp_helpindex 'FACULTY'
 exec sp_helpindex 'GROUPS'
 exec sp_helpindex 'PROFESSION'
 exec sp_helpindex 'PROGRESS'
-exec sp_helpindex 'PULPIT'
+exec sp_helpindex 'PULPIT'	
 exec sp_helpindex 'STUDENT'
 exec sp_helpindex 'SUBJECT'
 exec sp_helpindex 'TEACHER'
 exec sp_helpindex 'TIMETABLE'
 
 
-drop table if exists #temp_table
-go
+
 
 create table #temp_table
-(	some_ind int,
+(	some_ind  int ,
 	some_field varchar(20)
 )
 SET nocount on;
@@ -40,11 +39,12 @@ while @i < 2000
 
 select * from #temp_table where some_ind between 1500 and 2000 order by some_ind
 
-
-
-
-select * from #temp_table where some_ind between 1500 and 2000 order by some_ind
 	checkpoint;
+	 DBCC DROPCLEANBUFFERS;  
+
 CREATE  clustered index  #temp_table_cl on #temp_table(some_ind asc)
 
 
+drop index #temp_table_cl on #temp_table
+drop table  #temp_table
+go

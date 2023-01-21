@@ -8,7 +8,7 @@ CREATE TABLE #temp
 (
     ID            int identity (1,1),
     RANDOM_NUMBER int,
-    WORD          varchar(50) default 'значение 3-ого столбца'
+    WORD          varchar(50) default 'value'
 );
 
 DECLARE @iter int = 0;
